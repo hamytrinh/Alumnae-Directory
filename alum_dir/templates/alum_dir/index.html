@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html>
+<head>        
+    <title>Alumnae Directory</title>
+</head>
+<body>
+    <h1>Alumnae Directory</h1>
+
+    {% if user.is_authenticated %}
+        <h1>Hello {{ user.username }}!</h1>
+
+        {% if alum_list %}
+            <table>
+                <tr> 
+                    <td>Last name</td>
+                    <td>First name</td>
+                    <td>Email address</td>
+                    <td>Graduate year</td>
+                    <td>Current School</td>        
+                </tr>
+                {% for alum in alum_list %}
+                <tr> 
+                    <td>{{ alum.last_name }}</td>
+                    <td>{{ alum.first_name }}</td>
+                    <td>{{ alum.email }}</td>
+                    <td>{{ alum.year }}</td>
+                    <td>{{ alum.school }}</td>                
+                </tr>
+                {% endfor %}
+            </table>    
+            <p></p>
+            <a href="/alum_dir/search/">Search by school</a><br />
+            <a href="/alum_dir/logout/">Logout</a><br />
+        {% else %}
+            <p>No alum is available.</p>
+        {% endif %}
+    {% else %}
+        <p>Please log in to view directory!</p>
+        <a href="/alum_dir/register/">Register Here</a><br />
+        <a href="/alum_dir/login/">Login</a><br />
+    {% endif %}                    
+</body>
+</html>

@@ -1,0 +1,27 @@
+<!-- 
+ Source for 3 functions: register, user_login, and user_logout
+ Title: User Authentication
+ Url: http://www.tangowithdjango.com/book/chapters/login.html
+-->
+
+<!DOCTYPE html>
+<html>
+    <head>        
+        <title>Alumnae Directory</title>
+    </head>
+
+    <body>
+        <h1>Login to Alum Directory</h1>                  
+
+        <form id="login_form" method="post" action="/alum_dir/login/">
+            {% csrf_token %}
+            Username: <input type="text" name="username" value="" size="50" />
+            <br />
+            Password: <input type="password" name="password" value="" size="50" />
+            <br />
+
+            <input type="submit" value="submit" />
+        </form>
+
+    </body>
+</html>

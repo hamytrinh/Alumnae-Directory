@@ -1,0 +1,50 @@
+<!-- 
+ Source for search functions
+ Author: Julien Phalip
+ Title: Adding search to a Django site in a snap
+ Url: http://julienphalip.com/post/2825034077/adding-search-to-a-django-site-in-a-snap
+-->
+
+
+<!DOCTYPE html>
+<html>
+<head>	
+	<title>Alumae Directory</title>
+</head>
+
+<body>
+	<h1>Search in Alum Directory</h1>
+
+	<form method="get" action="/alum_dir/search/">
+		<label for="id_q">Search by school:</label>
+		<input type="text" name="q" id="id_q"/>
+		<input type="submit" value="Submit"/>
+	</form>
+
+	{% if found_entries %}
+	<table>
+		<tr> 
+			<td>Last name</td>
+			<td>First name</td>
+			<td>Email address</td>
+			<td>Graduate year</td>
+			<td>Current School</td>			
+		</tr>
+		{% for alum in found_entries %}
+		<tr> 
+			<td>{{ alum.last_name }}</td>
+			<td>{{ alum.first_name }}</td>
+			<td>{{ alum.email }}</td>
+			<td>{{ alum.year }}</td>
+			<td>{{ alum.school }}</td>			
+		</tr>
+		{% endfor %}
+	</table>
+	{% else %}
+		<p>No alum found at this school.</p>
+	{% endif %}
+	<p></p>
+	<a href="/alum_dir/">Return to homepage</a><br />
+	<a href="/alum_dir/logout/">Logout</a><br />
+</body>
+</html>
