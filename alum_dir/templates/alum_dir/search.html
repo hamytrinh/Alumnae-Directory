@@ -5,30 +5,64 @@
  Url: http://julienphalip.com/post/2825034077/adding-search-to-a-django-site-in-a-snap
 -->
 
-
 <!DOCTYPE html>
 <html>
 <head>	
-	<title>Alumae Directory</title>
+	<title>Alumae Directory</title>	
+    <style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+    }
+    #header {
+        background-color:#CF4F1C;
+        color:white;
+        text-align:center;
+        padding:5px;
+    }
+    #nav {
+        line-height:30px;
+        background-color:#F59A76;
+        height:100px;
+        width:180px;
+        float:right;
+        padding:10px;          
+    }    
+    </style>
 </head>
 
 <body>
-	<h1>Search in Alum Directory</h1>
-
+	<div id="header">
+        <font face="Tahoma" size="10">Hanoi Amsterdam Alumnae Directory</font>
+    </div>  
+	<br />
+	<img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Hanoiamsterdam_logo.jpg" width="300" height="300" alt="school_logo" >
+	<br />
+	<div id="nav">
+            <a href="/alum_dir/profile/">View your profile</a><br/>
+            <a href="/alum_dir/">Homepage</a><br/>
+            <a href="/alum_dir/logout/">Logout</a>
+    </div>
+	<font face="verdana" color="#DC143C" size="5">Search directory!</font>
+	<br />
 	<form method="get" action="/alum_dir/search/">
+		<br />
 		<label for="id_q">Search by school:</label>
 		<input type="text" name="q" id="id_q"/>
 		<input type="submit" value="Submit"/>
-	</form>
-
+	</form>	
 	{% if found_entries %}
-	<table>
+	<table border="1" style="width:70%">
+		<br />
 		<tr> 
-			<td>Last name</td>
-			<td>First name</td>
-			<td>Email address</td>
-			<td>Graduate year</td>
-			<td>Current School</td>			
+			<th>Last name</th>
+			<th>First name</th>
+			<th>Email address</th>
+			<th>Graduate year</th>
+			<th>Current School</th>			
 		</tr>
 		{% for alum in found_entries %}
 		<tr> 
@@ -43,8 +77,6 @@
 	{% else %}
 		<p>No alum found at this school.</p>
 	{% endif %}
-	<p></p>
-	<a href="/alum_dir/">Return to homepage</a><br />
-	<a href="/alum_dir/logout/">Logout</a><br />
+	
 </body>
 </html>

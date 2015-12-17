@@ -8,18 +8,44 @@
 <html>
     <head>
         <title>Alumnae Directory</title>
+        <style>
+        #header {
+            background-color:#CF4F1C;
+            color:white;
+            text-align:center;
+            padding:5px;
+        }
+        #nav {
+            line-height:30px;
+            background-color:#F59A76;
+            height:80px;
+            width:180px;
+            float:right;
+            padding:10px;          
+        }   
+        </style>   
     </head>
 
     <body>
-        <h1>Register for an alum account</h1>
-
+        <div id="header">
+            <font face="Tahoma" size="10">Hanoi Amsterdam Alumnae Directory</font>
+        </div>        
+        <br />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Hanoiamsterdam_logo.jpg" width="300" height="300" alt="school_logo" >
+        <br />        
+        <div id="nav">
+            <a>Have an account already?</a><br/>
+            <a href="/alum_dir/login/">Login here!</a>            
+        </div>     
+        <font face="verdana" color="#DC143C" size="5">Register for an account here!</font>                
+        <br />             
         {% if registered %}
+            <br />     
             <strong>Thank you for registering! Please login to see the directory.</strong>
+            <br />
             <br />
             <a href="/alum_dir/login">Login.</a><br />
         {% else %}
-        <strong>Register here!</strong><br />
-
         <form id="user_form" method="post" action="/alum_dir/register/"
                 enctype="multipart/form-data">
 

@@ -1,4 +1,4 @@
-from .models import UserProfile
+from .models import UserProfile, Alum
 from django.contrib.auth.models import User
 from django import forms
 # from haystack.forms import SearchForm
@@ -18,9 +18,9 @@ class UserForm(forms.ModelForm):
 
 
 class UserProfileForm(forms.ModelForm):
-	year = forms.CharField(label='Graduated year')
-	school = forms.CharField(label='Current school')
-
+	year = forms.CharField(label='Graduated year', required=False)
+	school = forms.CharField(label='Current school', required=False)
+	
 	class Meta:
 		model = UserProfile
 		fields = ('year', 'school')                     

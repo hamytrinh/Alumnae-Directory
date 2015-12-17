@@ -1,0 +1,90 @@
+<!DOCTYPE html>
+<html>
+    <head>
+        <title>Alumnae Directory</title>
+        <style>
+        table, th, td {
+            border: 1px solid black;
+            border-collapse: collapse;
+        }
+        th, td {
+            padding: 5px;
+        }
+        #header {
+            background-color:#CF4F1C;
+            color:white;
+            text-align:center;
+            padding:5px;
+        }
+        #nav {
+            line-height:30px;
+            background-color:#F59A76;
+            height:100px;
+            width:180px;
+            float:right;
+            padding:10px;          
+        }    
+        </style>
+    </head>
+
+    <body>
+        <div id="header">
+            <font face="Tahoma" size="10">Hanoi Amsterdam Alumnae Directory</font>
+        </div>  
+        <br />
+        <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Hanoiamsterdam_logo.jpg" width="300" height="300" alt="school_logo" >
+        <br />
+        <div id="nav">            
+            <a href="/alum_dir/search/">Search by school</a><br/>
+            <a href="/alum_dir/">Homepage</a><br/>            
+            <a href="/alum_dir/logout/">Logout</a>
+        </div>
+        <font face="verdana" color="#DC143C" size="5">Welcome, {{ user.username }}!</font>
+        <br />
+        <br />
+        <strong>This is your current information:</strong><br />
+        <br />
+        <table>
+        <tr> 
+            <th>Last name</th>
+            <th>First name</th>
+            <th>Email address</th>
+            <th>Current School</th>
+            <th>Class year</th>
+        </tr>    
+        <tr> 
+            <td>{{ alum.last_name }}</td>
+            <td>{{ alum.first_name }}</td>
+            <td>{{ alum.email }}</td>
+            <td>{{ alum.school }}</td>
+            <td>{{ alum.year }}</td>
+        </tr>
+        </table>
+        <br />    
+        {% if updated %}
+            <strong>Thank you for updating your information!</strong>
+            <br />
+            <a href="/alum_dir/">Return to Homepage</a><br />
+        {% else %}
+
+        <strong>You can update your account information below:</strong><br />      
+        <p>(Leave blank to use current information)<p/>         
+        <form id="update_form" method="post" action="/alum_dir/profile/">
+            {% csrf_token %}
+            Last name: <input type="text" name="last_name" value="" size="50" />
+            <br />
+            First name: <input type="text" name="first_name" value="" size="50" />
+            <br />
+            Email: <input type="text" name="email" value="" size="50" />
+            <br />
+            Class Year: <input type="text" name="year" value="" size="50" />
+            <br />
+            Current School: <input type="text" name="school" value="" size="50" />
+            <br />
+            <br />    
+            <input type="submit" value="Submit" />
+        </form>
+
+        {% endif %}
+    </body>
+</html>

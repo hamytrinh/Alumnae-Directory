@@ -17,13 +17,6 @@ def index(request):
     context = {'alum_list': alum_list}
     return render(request, 'alum_dir/index.html', context)
 
-# def detail(request, alum_id):
-#     try:
-#         alum = Alum.objects.get(pk=alum_id)
-#     except Alum.DoesNotExist:
-#         raise Http404("Alum does not exist")
-#     return render(request, 'alum_dir/detail.html', {'alum': alum})
-
 #
 # BEGIN: Source for search functions
 # Author: Julien Phalip
@@ -105,7 +98,7 @@ def register(request):
         profile_form = UserProfileForm(data=request.POST)
 
         # If the two forms are valid...
-        if user_form.is_valid(): #and profile_form.is_valid():
+        if user_form.is_valid() and profile_form.is_valid():
             # Save the user's form data to the database.
             user = user_form.save()
 
@@ -119,11 +112,6 @@ def register(request):
             # This delays saving the model until we're ready to avoid integrity problems.
             profile = profile_form.save(commit=False)
             profile.user = user
-
-            # Did the user provide a profile picture?
-            # If so, we need to get it from the input form and put it in the UserProfile model.
-            # if 'picture' in request.FILES:
-                # profile.picture = request.FILES['picture']
 
             # Now we save the UserProfile model instance.
             profile.save()
@@ -210,8 +198,65 @@ def user_logout(request):
 
 @login_required
 def user_profile(request):
-    try:
-        alum = Alum.objects.get(email=request.user.email)
-    except Alum.DoesNotExist:
-        raise Http404("Your profile doesn't exist")
-    return render(request, 'alum_dir/detail.html', {'alum': alum})
+
+    updated = False
+    # Like before, obtain the context for the user's request.
+    context = RequestContext(request)
+    # get the user in the request
+    user = request.user
+    # the alum associated with the user
+    alum = Alum.objects.get(email=user.email)
+
+    # If the request is a HTTP POST, try to pull out the relevant information.
+    if request.method == 'POST':
+        
+        # get new data from the form
+        last_name = request.POST['last_name']
+        # check to see if user enters anything
+        if last_name != '':
+            # update data
+            user.last_name = last_name
+            alum.last_name = last_name
+
+        # get new data from the form    
+        first_name = request.POST['first_name']  
+        # check to see if user enters anything  
+        if first_name != '':
+            # update data
+            user.first_name = first_name
+            alum.first_name = first_name
+
+        # get new data from the form    
+        email = request.POST['email']    
+        # check to see if user enters anything
+        if email != '':
+            # update data
+            user.email = email
+            alum.email = email
+
+        # get new data from the form
+        year = request.POST['year']
+        # check to see if user enters anything
+        if year != '':
+            # update data
+            alum.year = year
+
+        # get new data from the form   
+        school = request.POST['school']    
+        # check to see if user enters anything
+        if school != '':
+            # update data
+            alum.school = school
+
+        # save new information    
+        alum.save()
+        user.save()
+
+        # successfully updated
+        updated = True
+   
+    # return 
+    return render_to_response(
+        'alum_dir/profile.html',
+        {'updated': updated, 'alum': alum},
+        context)  

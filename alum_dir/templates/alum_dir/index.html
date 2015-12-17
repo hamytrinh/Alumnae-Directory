@@ -1,22 +1,54 @@
 <!DOCTYPE html>
 <html>
 <head>        
-    <title>Alumnae Directory</title>
+    <title>Alumnae Directory</title>    
+    <style>
+    table, th, td {
+        border: 1px solid black;
+        border-collapse: collapse;
+    }
+    th, td {
+        padding: 5px;
+    }
+    #header {
+        background-color:#CF4F1C;
+        color:white;
+        text-align:center;
+        padding:5px;
+    }
+    #nav {
+        line-height:30px;
+        background-color:#F59A76;
+        height:100px;
+        width:180px;
+        float:right;
+        padding:10px;          
+    }    
+    </style>
 </head>
-<body>
-    <h1>Alumnae Directory</h1>
-
+<body>    
+    <div id="header">
+        <font face="Tahoma" size="10">Hanoi Amsterdam Alumnae Directory</font>
+    </div>
+    <br />            
+    <img src="https://upload.wikimedia.org/wikipedia/commons/8/84/Hanoiamsterdam_logo.jpg" width="300" height="300" alt="school_logo" >
+    <br />
     {% if user.is_authenticated %}
-        <h1>Hello {{ user.username }}!</h1>
-
-        {% if alum_list %}
-            <table>
+        <div id="nav">
+            <a href="/alum_dir/profile/">View your profile</a><br/>
+            <a href="/alum_dir/search/">Search by school</a><br/>
+            <a href="/alum_dir/logout/">Logout</a>
+        </div>
+        <font face="verdana" color="#DC143C" size="5">Welcome to the directory, {{ user.username }}!</font>        
+        {% if alum_list %}            
+            <table border="1" style="width:70%">                                
                 <tr> 
-                    <td>Last name</td>
-                    <td>First name</td>
-                    <td>Email address</td>
-                    <td>Graduate year</td>
-                    <td>Current School</td>        
+                    <br /><br />                    
+                    <th>Last name</th>
+                    <th>First name</th>
+                    <th>Email address</th>
+                    <th>Graduate year</th>
+                    <th>Current School</th>        
                 </tr>
                 {% for alum in alum_list %}
                 <tr> 
@@ -29,15 +61,14 @@
                 {% endfor %}
             </table>    
             <p></p>
-            <a href="/alum_dir/search/">Search by school</a><br />
-            <a href="/alum_dir/logout/">Logout</a><br />
         {% else %}
             <p>No alum is available.</p>
         {% endif %}
     {% else %}
-        <p>Please log in to view directory!</p>
-        <a href="/alum_dir/register/">Register Here</a><br />
-        <a href="/alum_dir/login/">Login</a><br />
+        <strong>Please log in to view directory!</strong>
+        <a href="/alum_dir/login/">Login</a><br /><br />
+        <strong>Register if you don't have an account yet!</strong>
+        <a href="/alum_dir/register/">Register</a><br />
     {% endif %}                    
 </body>
 </html>
